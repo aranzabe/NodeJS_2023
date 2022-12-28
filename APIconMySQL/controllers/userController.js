@@ -35,27 +35,54 @@ const usuarioGet =  (req, res = response) => {
 }
 
 const usuariosPost =  (req = request, res = response) => {
-    // const bod = req.body;
-    // console.log(bod);
-    // res.status(201).json({
-    //     msg:'Post desde controlador...',
-    //     bod
-    // });
-    const {nombre, edad} = req.body;
-    res.status(201).json({
-        msg:'Post desde controlador...',
-        nombre,
-        edad
-    });
+    const conx = new Conexion();
+    conx.conectar();
+    // console.log(req.params.dni+"!!!!!");
+    conx.registrarUsuario(req.body.dni, req.body.nombre, req.body.clave, req.body.tfno)    
+        .then( msg => {
+            console.log('Insertado correctamente!');
+            conx.desconectar();
+            res.status(201).json(msg);
+        })
+        .catch( err => {
+            console.log('Fallo en el registro!');
+            conx.desconectar();
+            res.status(203).json(err);
+        });
 }
 
 const usuariosDelete =  (req, res = response) => {
-    res.status(202).json({'msg':'Delete desde controlador'});
+    const conx = new Conexion();
+    conx.conectar();
+    // console.log(req.params.dni+"!!!!!");
+    conx.borrarUsuario(req.params.dni)    
+        .then( msg => {
+            console.log('Borrado correctamente!');
+            conx.desconectar();
+            res.status(202).json(msg);
+        })
+        .catch( err => {
+            console.log('Fallo en el borrado!');
+            conx.desconectar();
+            res.status(203).json(err);
+        });
 }
 
 const usuariosPut =  (req, res = response) => {
-    const id = req.params.id;
-    res.status(202).json({'msg':'Put desde controlador.', id});
+    const conx = new Conexion();
+    conx.conectar();
+    // console.log(req.params.dni+"!!!!!");
+    conx.modificarUsuario(req.params.dni, req.body.nombre, req.body.clave, req.body.tfno)    
+        .then( msg => {
+            console.log('Modificado correctamente!');
+            conx.desconectar();
+            res.status(202).json(msg);
+        })
+        .catch( err => {
+            console.log('Fallo en la modificación!');
+            conx.desconectar();
+            res.status(203).json(err);
+        });
 }
 
 

@@ -73,6 +73,41 @@ class Conexion {
         }
         return resultado;
     }
+
+    registrarUsuario = async(dni, nombre, clave, tfno) => {
+        let resultado = 0;
+        try {
+            resultado = await this.query('INSERT INTO personas VALUES (?,?,?,?)', [dni, nombre, clave, tfno]);
+            // console.log('Y aquí');
+        } catch (error) {
+            throw error;
+        }
+        return resultado;
+    }
+
+    modificarUsuario = async(dni, nombre, clave, tfno) => {
+        let resultado = 0;
+        try {
+            resultado = await this.query('UPDATE personas SET Nombre=?,Clave=?,Tfno=? WHERE DNI = ?', [nombre, clave, tfno, dni]);
+            // console.log('Y aquí');
+        } catch (error) {
+            throw error;
+        }
+        return resultado;
+    }
+
+    borrarUsuario = async(dni) => {
+        let resultado = 0;
+        try {
+            resultado = await this.query('DELETE FROM  personas  WHERE DNI = ?', [dni]);
+            // console.log('Y aquí');
+        } catch (error) {
+            throw error;
+        }
+        return resultado;
+    }
+
+    
 }
 
 module.exports = Conexion;
