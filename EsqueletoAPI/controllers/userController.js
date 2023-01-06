@@ -24,7 +24,7 @@ const usuariosPost =  (req = request, res = response) => {
 }
 
 const usuariosDelete =  (req, res = response) => {
-    res.status(202).json({'msg':'Delete desde controlador'});
+    res.status(202).json({'msg':'Delete desde controlador', 'id':req.params.id});
 }
 
 const usuariosPut =  (req, res = response) => {
