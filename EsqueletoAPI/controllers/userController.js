@@ -4,6 +4,10 @@ const usuariosGet =  (req, res = response) => {
     res.status(200).json({'msg':'Get desde controlador'});
 }
 
+const usuariosGetParametro =  (req, res = response) => {
+    res.status(200).json({'msg':'Get desde controlador', 'id':req.params.id});
+}
+
 const usuariosPost =  (req = request, res = response) => {
     // const bod = req.body;
     // console.log(bod);
@@ -33,5 +37,6 @@ module.exports = {
     usuariosGet,
     usuariosDelete,
     usuariosPost,
-    usuariosPut
+    usuariosPut,
+    usuariosGetParametro
 }

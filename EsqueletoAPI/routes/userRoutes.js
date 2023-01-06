@@ -5,6 +5,7 @@ const mids = require("../middlewares/userMiddlewares");
 
 //El segundo parámetro (optativo) son los middlewares.
 router.get('/',[mids.esMayor],  controlador.usuariosGet);
+router.get('/:id?', controlador.usuariosGetParametro)
 router.post('/', controlador.usuariosPost);
 router.put('/:id?', controlador.usuariosPut);//Con parámetro optativo.
 router.delete('/', controlador.usuariosDelete);
