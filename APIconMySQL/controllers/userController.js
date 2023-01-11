@@ -12,7 +12,7 @@ const usuariosGet =  (req, res = response) => {
         })
         .catch( err => {
             console.log('No hay registros');
-            res.status(200).json({'msg':'No se han encontrado registros'});
+            res.status(203).json({'msg':'No se han encontrado registros'});
         });
 }
 
@@ -26,7 +26,7 @@ const usuarioGet =  (req, res = response) => {
         })
         .catch( err => {
             console.log('No hay registro!');
-            res.status(200).json({'msg':'No se ha encontrado el registro'});
+            res.status(203).json({'msg':'No se ha encontrado el registro'});
         });
 }
 
