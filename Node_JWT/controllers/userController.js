@@ -43,12 +43,12 @@ const usuariosPost =  (req = request, res = response) => {
         });
 }
 
-const usuariosDelete =  (req, res = response) => {
+const usuariosDelete =  (req, res) => {
     const conx = new Conexion();
     // console.log(req.params.dni+"!!!!!");
     conx.borrarUsuario(req.params.dni)    
         .then( msg => {
-            console.log('Borrado correctamente!');
+            console.log('Borrado correctamente!  '+ req.dniToken);  //Podemos acceder a este valor de req porque lo hemos almacenado en el middleware validarHWT extrayendo la información del token.
             res.status(202).json(msg);
         })
         .catch( err => {

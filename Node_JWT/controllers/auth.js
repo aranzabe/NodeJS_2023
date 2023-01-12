@@ -10,8 +10,8 @@ const login =  (req, res = response) => {
         const conx = new Conexion();
         u = conx.getUsuarioRegistrado(DNI, Clave)    
             .then( usu => {
-                console.log('Usuario correcto!');
-                const token = generarJWT(usu.DNI)
+                console.log('Usuario correcto!  ' + usu[0].DNI);
+                const token = generarJWT(usu[0].DNI)
                 console.log(usu)
                 console.log(token);
                 res.status(200).json({usu, token});
