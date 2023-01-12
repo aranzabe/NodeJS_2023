@@ -9,21 +9,13 @@ const validarJWT = (req , res , next) => {  //Estas asignaciones son necesarias 
     }
 
     try {
-        // jwt.verify(token, process.env.SECRETORPRIVATEKEY, (err, decoded) => {
-        //     if (err) {
-        //       return res.status(401).send({
-        //         message: "No autorizado!"
-        //       });
-        //     }
-        //     req.userId = decoded.id;
-        //     console.log(req.userId);
-        //   });
         
         const {uid} = jwt.verify(token, process.env.SECRETORPRIVATEKEY);
         req.dniToken = uid;
         console.log(uid);
         console.log(token);
         next();
+        
     }catch(error){
         console.log(error);
         res.status(401).json({'msg':'Token no válido.'});

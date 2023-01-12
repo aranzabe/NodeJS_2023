@@ -3,13 +3,14 @@ const controlador = require('../controllers/userController');
 const router = Router();
 const mids = require("../middlewares/userMiddlewares");
 const midsJWT = require("../middlewares/validarJWT");
+const midsRoles = require("../middlewares/validarRoles");
 
 //El segundo parámetro (optativo) son los middlewares.
 router.get('/', controlador.usuariosGet);
 router.get('/:dni', controlador.usuarioGet);
 router.post('/', controlador.usuariosPost);
 router.put('/:dni?', controlador.usuariosPut);
-router.delete('/:dni', [midsJWT.validarJWT] ,controlador.usuariosDelete);
+router.delete('/:dni', [midsJWT.validarJWT, midsRoles.esAdmin] ,controlador.usuariosDelete);
 
 //Formas de agrupar rutas. Lo del middleware podría ir en la clase server pero quizá sea más entendible aquí, justo antes de la agrupación de rutas.
 // router.use('/acceso',[mids.otroMiddleware, mids.esMayor]); //Para agrupar rutas y aplicarles middlewares.
