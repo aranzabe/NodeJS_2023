@@ -2,20 +2,8 @@ const jwt = require('jsonwebtoken')
 
 
 const generarJWT = (uid = '') => {
-    // return new Promise( (resolve, reject) => {
-    //     const payload = { uid };
-    //     jwt.sign(payload,process.env.SECRETORPRIVATEKEY,{
-    //         expiresIn: '4h'
-    //     }, (err, token) => {
-    //         if (err){
-    //             console.log(err);
-    //             reject('No se ha generado el token.');
-    //         }
-    //         else {
-    //             resolve(token);
-    //         } 
-    //     } )
-    // })
+    
+    //En el token podemos hacer que viaje (en el payload) el id de ese usuario. No supone un gran fallo de seguridad y nos permite sacar la información del mismo en los middleware.
     console.log("UID:" + uid)
     var token = jwt.sign({ uid }, process.env.SECRETORPRIVATEKEY, {
         expiresIn: '4h' // 24 hours
