@@ -3,6 +3,14 @@ const { Sequelize } = require('sequelize')
 class ConexionSequilze {
 
     constructor() {
+        
+    }
+
+    /**
+     * Sequelize will keep the connection open by default, and use the same connection for all queries. If you need to close the connection, 
+     * call sequelize.close() (which is asynchronous and returns a Promise).
+     */
+    conectar = () => {
         this.db = new Sequelize(process.env.DB_DATABASE, process.env.DB_USER, process.env.DB_PASSWORD, {
             host: process.env.DB_HOST,
             dialect:'mysql', /* one of 'mysql' | 'postgres' | 'sqlite' | 'mariadb' | 'mssql' | 'db2' | 'snowflake' | 'oracle' */
@@ -13,20 +21,11 @@ class ConexionSequilze {
                 idle: 10000
              },
           });
-          this.conectar();
-    }
-
-    /**
-     * Sequelize will keep the connection open by default, and use the same connection for all queries. If you need to close the connection, 
-     * call sequelize.close() (which is asynchronous and returns a Promise).
-     */
-    conectar = async() => {
-        try {
-            await this.db.authenticate();
+        this.db.authenticate().then(() => {
             console.log('Connection has been established successfully.');
-          } catch (error) {
-            console.error('Unable to connect to the database:', error);
-          }
+        }).catch((error) => {
+            console.error('Unable to connect to the database: ', error);
+        });
     }
 
     desconectar = () => {
