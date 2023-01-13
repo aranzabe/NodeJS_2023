@@ -33,7 +33,8 @@ const usuarioGet =  (req, res = response) => {
 const usuariosPost =  (req = request, res = response) => {
     const conx = new Conexion();
     
-    conx.registrarUsuario(req.body.dni, req.body.nombre, req.body.clave, req.body.tfno)    
+    //conx.registrarUsuario(req.body.DNI, req.body.Nombre, req.body.Clave, req.body.Tfno)    
+    conx.registrarUsuario(req.body)    
         .then( msg => {
             console.log('Insertado correctamente!');
             res.status(201).json(msg);
@@ -61,7 +62,7 @@ const usuariosDelete =  (req, res = response) => {
 const usuariosPut =  (req, res = response) => {
     const conx = new Conexion();
     
-    conx.modificarUsuario(req.params.dni, req.body.nombre, req.body.clave, req.body.tfno)    
+    conx.modificarUsuario(req.params.dni, req.body)    
         .then( msg => {
             console.log('Modificado correctamente!');
             res.status(202).json(msg);

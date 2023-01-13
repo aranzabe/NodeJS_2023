@@ -53,23 +53,37 @@ class ConexionSequilze {
         return resultado;
     }
 
-    registrarUsuario = async(dni, nombre, clave, tfno) => {
+    //registrarUsuario = async(dni, nombre, clave, tfno) => {
+    registrarUsuario = async(body) => {
         let resultado = 0;
         this.conectar();
+        const usuarioNuevo = new Persona(body); //Con esto añade los timeStamps.
+        await usuarioNuevo.save();
         this.desconectar();
         return resultado;
     }
 
-    modificarUsuario = async(dni, nombre, clave, tfno) => {
-        let resultado = 0;
+    //modificarUsuario = async(dni, nombre, clave, tfno) => {
+    modificarUsuario = async(dni, body) => {
         this.conectar();
+        let resultado = await Persona.findByPk(dni);
+        if (!resultado){
+            this.desconectar();
+            throw error;
+        }
+        await resultado.update(body);
         this.desconectar();
         return resultado;
     }
 
     borrarUsuario = async(dni) => {
-        let resultado = 0;
         this.conectar();
+        let resultado = await Persona.findByPk(dni);
+        if (!resultado){
+            this.desconectar();
+            throw error;
+        }
+        await resultado.destroy();
         this.desconectar();
         return resultado;
     }
