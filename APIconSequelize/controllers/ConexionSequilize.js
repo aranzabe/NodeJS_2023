@@ -1,16 +1,9 @@
-const { Sequelize } = require('sequelize')
+const { Sequelize } = require('sequelize');
+const Persona = require('../models/Persona');
 
 class ConexionSequilze {
 
     constructor() {
-        
-    }
-
-    /**
-     * Sequelize will keep the connection open by default, and use the same connection for all queries. If you need to close the connection, 
-     * call sequelize.close() (which is asynchronous and returns a Promise).
-     */
-    conectar = () => {
         this.db = new Sequelize(process.env.DB_DATABASE, process.env.DB_USER, process.env.DB_PASSWORD, {
             host: process.env.DB_HOST,
             dialect:'mysql', /* one of 'mysql' | 'postgres' | 'sqlite' | 'mariadb' | 'mssql' | 'db2' | 'snowflake' | 'oracle' */
@@ -21,6 +14,13 @@ class ConexionSequilze {
                 idle: 10000
              },
           });
+    }
+
+    /**
+     * Sequelize will keep the connection open by default, and use the same connection for all queries. If you need to close the connection, 
+     * call sequelize.close() (which is asynchronous and returns a Promise).
+     */
+    conectar = () => {
         this.db.authenticate().then(() => {
             console.log('Connection has been established successfully.');
         }).catch((error) => {
@@ -29,13 +29,15 @@ class ConexionSequilze {
     }
 
     desconectar = () => {
-        this.db.close();
+        //this.db.close();
+        process.on('SIGINT', () => conn.close())
     }
 
     getlistado = async() => {
-        let resultado = ['Fake'];
+        let resultado = [];
         this.conectar();
-        console.log('Accediendo a los datos...')
+        //console.log('Accediendo a los datos...')
+        resultado = await Persona.findAll();
         this.desconectar();
         return resultado;
     }
@@ -43,12 +45,9 @@ class ConexionSequilze {
     getUsuario = async(dni) => {
         let resultado = [];
         this.conectar();
-        try {
-            resultado = await this.query('SELECT * FROM personas WHERE DNI = ?', [dni]);
-            // console.log('Y aquí');
-            this.desconectar();
-        } catch (error) {
-            this.desconectar();
+        resultado = await Persona.findByPk(dni);
+        this.desconectar();
+        if (!resultado){
             throw error;
         }
         return resultado;
@@ -57,42 +56,21 @@ class ConexionSequilze {
     registrarUsuario = async(dni, nombre, clave, tfno) => {
         let resultado = 0;
         this.conectar();
-        try {
-            resultado = await this.query('INSERT INTO personas VALUES (?,?,?,?)', [dni, nombre, clave, tfno]);
-            // console.log('Y aquí');
-            this.desconectar();
-        } catch (error) {
-            this.desconectar();
-            throw error;
-        }
+        this.desconectar();
         return resultado;
     }
 
     modificarUsuario = async(dni, nombre, clave, tfno) => {
         let resultado = 0;
         this.conectar();
-        try {
-            resultado = await this.query('UPDATE personas SET Nombre=?,Clave=?,Tfno=? WHERE DNI = ?', [nombre, clave, tfno, dni]);
-            // console.log('Y aquí');
-            this.desconectar();
-        } catch (error) {
-            this.desconectar();
-            throw error;
-        }
+        this.desconectar();
         return resultado;
     }
 
     borrarUsuario = async(dni) => {
         let resultado = 0;
         this.conectar();
-        try {
-            resultado = await this.query('DELETE FROM  personas  WHERE DNI = ?', [dni]);
-            // console.log('Y aquí');
-            this.desconectar();
-        } catch (error) {
-            this.desconectar();
-            throw error;
-        }
+        this.desconectar();
         return resultado;
     }
 }
