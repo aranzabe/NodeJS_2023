@@ -1,6 +1,7 @@
 const { Sequelize, DataTypes, Model }= require('sequelize');
 const db = require('../controllers/connection');
 const RolesAsignados = require('./RolesAsignados');
+const Roles = require('./Roles');
 
 //https://sequelize.org/docs/v6/core-concepts/model-basics/
 //https://stackoverflow.com/questions/29233896/sequelize-table-without-column-
@@ -32,9 +33,13 @@ const Persona = db.define('persona', {
 // Persona.removeAttribute('id');
 // Persona.removeAttribute('createdAt');
 // Persona.removeAttribute('updatedAt');
+
+
 // Persona.hasMany(RolAsignado);
 // Persona.belongsTo(RolesAsignados);
-// Persona.belongsToMany(Roles, { through: RolesAsignados });
+// Persona.belongsToMany(Roles, { through: RolesAsignados, foreignKey: 'DNIRol' });
+
 Persona.hasMany(RolesAsignados, {as: 'RolesAsignados', foreignKey: 'DNIRol'});
+
 module.exports = Persona;
 // module.exports = (db, DataTypes) => Persona

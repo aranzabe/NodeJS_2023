@@ -1,6 +1,7 @@
 const { Sequelize, DataTypes, Model }= require('sequelize');
 const db = require('../controllers/connection');
 const RolesAsignados = require('./RolesAsignados');
+const Persona = require('./Persona');
 
 
 //https://sequelize.org/docs/v6/core-concepts/model-basics/
@@ -22,10 +23,11 @@ const Roles = db.define('roles', {
 {
     tableName: 'roles'
 });
-//Quitamos los atributos por defecto que trae de id, createdAt y updatedAt.
-// Persona.removeAttribute('id');
-// Persona.removeAttribute('createdAt');
-// Persona.removeAttribute('updatedAt');
+
 
 Roles.hasMany(RolesAsignados, {as: 'RolesAsignados', foreignKey: 'idRol'});
+
+// Roles.belongsToMany(Persona, { through: RolesAsignados, foreignKey: 'idRol' });
+
+
 module.exports =  Roles;

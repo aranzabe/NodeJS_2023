@@ -35,15 +35,15 @@ const RolesAsignados = db.define('rolesasignado', {
 {
     tableName: 'rolesasignado'
 });
-//Quitamos los atributos por defecto que trae de id, createdAt y updatedAt.
-// Persona.removeAttribute('id');
-// Persona.removeAttribute('createdAt');
-// Persona.removeAttribute('updatedAt');
+
+
 // RolesAsignados.belongsTo(Rol);
 // RolesAsignados.belongsTo(Persona);
-// Persona.belongsToMany(Rol, { through: RolesAsignados });
-//RolesAsignados.belongsToMany(Rol, {as: 'Rol', foreignKey: 'id'});
-// RolesAsignados.hasMany(Rol, {as: 'Rol', foreignKey: 'id'});
-// RolesAsignados.hasMany(Persona, {as: 'Persona', foreignKey: 'DNI'});
-// Rol.belongsToMany(Persona, { through: RolesAsignados });
+
+// RolesAsignados.belongsToMany(Rol, {as: 'Rol', foreignKey: 'id'});
+
+// RolesAsignados.hasMany(Rol, {as: 'RolA', foreignKey: 'idRol'});
+// RolesAsignados.hasMany(Persona, {as: 'PersonaA', foreignKey: 'DNIRol'});
+
+
 module.exports = RolesAsignados;

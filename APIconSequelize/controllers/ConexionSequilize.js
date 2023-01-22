@@ -113,7 +113,9 @@ class ConexionSequilze {
         let resultado = [];
         this.conectar();
         //console.log('Accediendo a los datos...')
-        // resultado = await RolesAsignados.findByPk(dni, {include: Persona});
+
+        //  resultado = await RolesAsignados.findOne({ where: { DNIRol: dn } , include: ["RolA"]});
+        
         resultado = await Persona.findOne({ where: { DNI: dn } , include: ["RolesAsignados"]});
         //resultado = await Roles.findOne({ where: { id: dn } , include: ["RolesAsignados"]});
         this.desconectar();
