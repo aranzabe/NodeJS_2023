@@ -9,6 +9,8 @@ class Server {
     constructor() {
         this.app = express();
         this.usuariosPath = '/api/usuarios';
+        this.rolesPath = '/api/roles';
+        this.rolesAsignados = '/api/rolesasignados';
 
         //Middlewares
         this.middlewares();
@@ -30,6 +32,8 @@ class Server {
 
     routes(){
         this.app.use(this.usuariosPath , require('../routes/userRoutes'));
+        this.app.use(this.rolesPath , require('../routes/rolesRoutes'));
+        this.app.use(this.rolesAsignados, require('../routes/rolesAsignadosRoutes'));
     }
 
     listen() {

@@ -1,5 +1,7 @@
 const { Sequelize } = require('sequelize');
 const Persona = require('../models/Persona');
+const RolAsignado = require('../models/RolesAsignados');
+const Roles = require('../models/Roles');
 
 class ConexionSequilze {
 
@@ -84,6 +86,36 @@ class ConexionSequilze {
             throw error;
         }
         await resultado.destroy();
+        this.desconectar();
+        return resultado;
+    }
+
+    //----------------------------------------
+    getRoles = async() => {
+        let resultado = [];
+        this.conectar();
+        //console.log('Accediendo a los datos...')
+        resultado = await Roles.findAll();
+        this.desconectar();
+        return resultado;
+    }
+
+    getRolesAsignados = async() => {
+        let resultado = [];
+        this.conectar();
+        //console.log('Accediendo a los datos...')
+        resultado = await RolAsignado.findAll();
+        this.desconectar();
+        return resultado;
+    }
+
+    getRolesAsignadosDNI = async(dn) => {
+        let resultado = [];
+        this.conectar();
+        //console.log('Accediendo a los datos...')
+        // resultado = await RolesAsignados.findByPk(dni, {include: Persona});
+        resultado = await Persona.findOne({ where: { DNI: dn } , include: ["RolesAsignados"]});
+        //resultado = await Roles.findOne({ where: { id: dn } , include: ["RolesAsignados"]});
         this.desconectar();
         return resultado;
     }

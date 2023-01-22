@@ -3,14 +3,8 @@ const controlador = require('../controllers/userController');
 const router = Router();
 const mids = require("../middlewares/userMiddlewares");
 
-//El segundo parámetro (optativo) son los middlewares.
-router.get('/', controlador.usuariosGet);
-router.get('/:dni', controlador.usuarioGet);
-router.post('/', controlador.usuariosPost);
-router.put('/:dni?', controlador.usuariosPut);
-router.delete('/:dni', controlador.usuariosDelete);
-//-------------------------
-router.get('/roles', controlador.rolesGet);
+router.get('/', controlador.rolesAsignadosGet);
+router.get('/:dni?', controlador.rolesAsignadosDNIGet);
 
 //Formas de agrupar rutas. Lo del middleware podría ir en la clase server pero quizá sea más entendible aquí, justo antes de la agrupación de rutas.
 // router.use('/acceso',[mids.otroMiddleware, mids.esMayor]); //Para agrupar rutas y aplicarles middlewares.
