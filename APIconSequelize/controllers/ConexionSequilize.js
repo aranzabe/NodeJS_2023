@@ -116,8 +116,8 @@ class ConexionSequilze {
 
         //  resultado = await RolesAsignados.findOne({ where: { DNIRol: dn } , include: ["RolA"]});
         
-        resultado = await Persona.findOne({ where: { DNI: dn } , include: ["RolesAsignados"]});
-        //resultado = await Roles.findOne({ where: { id: dn } , include: ["RolesAsignados"]});
+        //resultado = await Persona.findOne({ where: { DNI: dn } , include: ["RolesAsignados"]});
+        resultado = await Roles.findOne({ where: { id: dn } , include: ["RolesAsignados"]});
         this.desconectar();
         return resultado;
     }
