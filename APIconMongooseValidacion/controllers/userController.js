@@ -1,7 +1,7 @@
 const {response,request} = require('express');
-const Conexion = require('./Conexion');
+// const Conexion = require('./Conexion');
 const usuarios = require('../models/usuarioMongoose.js');
-const conx = new Conexion();
+// const conx = new Conexion();
 
 const usuariosGet =  (req, res = response) => {
     usuarios.find( (err, personas) => {
