@@ -8,6 +8,9 @@ class Server {
         this.app = express();
         this.usuariosPath = '/api/usuarios';
 
+        // Conectar a base de datos
+        this.conectarDB();
+
         //Middlewares
         this.middlewares();
 
