@@ -49,7 +49,7 @@ const googleSignin = async(req, res = response) => {
         //Si seguimos y no salta la excepción estarmos verificados por Google.
 
         //let usuario = await Usuario.findOne({ correo });
-        console.log(`Comprobaríamos el usuario: ${correo}`);
+        console.log(`Comprobaríamos el usuario: ${correo}, ${nombre}`);
         //Verificar si existe el usuario. Además de la verificación del token de Google, vemos si existe en nuestra BD, caso de no existir lo creamos.
         // const conx = new Conexion();
         // u = conx.getUsuarioRegistrado(dni, clave)    
@@ -79,7 +79,7 @@ const googleSignin = async(req, res = response) => {
         // }
 
 
-        const token = generarJWT(correo); //Si entramos, podemos generar nuestro propio token de seguridad con el correo del usuario.
+        const token = generarJWT(correo); //Si entramos, podemos generar nuestro propio token de seguridad con el correo del usuario. Ese token será el que usemos para el uso de la API.
         res.status(200).json({correo, token});
         
     } catch (error) {
