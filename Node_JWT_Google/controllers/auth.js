@@ -34,7 +34,7 @@ const login =  (req, res = response) => {
 
 
 //---------------------------------------------
-
+//https://developers.google.com/identity/gsi/web/guides/overview?hl=es-419
 const googleSignin = async(req, res = response) => {
 
     const { id_token } = req.body;
