@@ -54,8 +54,8 @@ const cargarArchivo = async(req, res = response) => {
 
         //--------------------- Usando el helper ----------------------
         // txt, md
-        //const nombre = await subirArchivo( req.files, ['txt','md'], 'textos' );
-        const nombre = await subirArchivo( req.files, undefined, 'imgs' );
+        const nombre = await subirArchivo( req.files, ['txt','md'], 'textos' );
+        //const nombre = await subirArchivo( req.files, undefined, 'imgs' );
         res.json({ nombre });
 
 
@@ -119,7 +119,8 @@ const mostrarImagen = async(req, res = response ) => {
     console.log(req.params.id);
     //Para probar, en este ejemplo, el nombre del archivo se lo enviamos en el body. Para probar puedes copiar el nombre de la carpeta upload.
     //En este caso, como es para probar, le añado la extensión jpg al archivo que me pasan porque en la url da fallo el punto. Cuando lo saquemos de la bd no hará falta añadirle la extensión.
-    const nombreArchivo = req.params.id + '.jpeg'; //Esta chapucilla es solo para probar con el nombre de archivo en la ruta. Cuando lo hagáis, en la ruta irá el id que usaré para buscar el nombre en la bd.
+    const nombreArchivo = req.params.id + '.jpg'; //Esta chapucilla es solo para probar con el nombre de archivo en la ruta. Cuando lo hagáis, en la ruta irá el id que usaré para buscar el nombre en la bd.
+    
     if (nombreArchivo) {
         // Como es para probar, doy por supuesto que tenemos la carpeta: ../uploads/imgs
         const pathImagen = path.join( __dirname, '../uploads', 'imgs', nombreArchivo );
